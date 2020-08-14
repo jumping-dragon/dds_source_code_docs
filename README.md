@@ -1,5 +1,5 @@
 # DDS Documentation
--
+---
 This is the documentation of source code used for the NTUST Water Dispenser IoT Project. On this project we used a library package provided by [RTI Connext DDS](https://www.rti.com/products)
 
 - Sample QOS => [USER_QOS_PROFILES.xml](./USER_QOS_PROFILES.xml)
@@ -23,4 +23,4 @@ This is the documentation of source code used for the NTUST Water Dispenser IoT 
 - water subscriber for regular data => [water_subscriber_classB.c](./water_subscriber_classB.c)
 - water subscriber for seldom data => [water_subscriber_classC.c](./water_subscriber_classC.c)
 
-###Documentation Comments are already attached on each file
+### Documentation Comments are already attached on each file
