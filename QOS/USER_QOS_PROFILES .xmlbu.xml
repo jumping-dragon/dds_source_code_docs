@@ -1,0 +1,207 @@
+<?xml version="1.0"?>
+<!-- 
+Description
+XML QoS Profile for water
+
+The QoS configuration of the DDS entities in the generated example is loaded 
+from this file.
+
+This file is used only when it is in the current working directory or when the
+environment variable NDDS_QOS_PROFILES is defined and points to this file.
+
+The profile in this file inherits from the builtin QoS profile 
+BuiltinQosLib::Generic.StrictReliable. That profile, along with all of the 
+other built-in QoS profiles can be found in the 
+BuiltinProfiles.documentationONLY.xml file located in the 
+$NDDSHOME/resource/xml/ directory.
+
+You may use any of these QoS configurations in your application simply by 
+referring to them by the name shown in the 
+BuiltinProfiles.documentationONLY.xml file and listed below: 
+
+* In library "BuiltinQosLib":
+** Baseline
+** Baseline.5.0.0
+** Baseline.5.1.0
+** Baseline.5.2.0
+** Generic.Common
+** Generic.510TransportCompatibility
+** Generic.Monitoring.Common
+** Generic.ConnextMicroCompatibility
+** Generic.OtherDDSVendorCompatibility
+
+* In library "BuiltinQosLibExp":
+** Generic.StrictReliable
+** Generic.KeepLastReliable
+** Generic.BestEffort
+** Generic.StrictReliable.HighThroughput
+** Generic.StrictReliable.LowLatency
+** Generic.Participant.LargeData
+** Generic.Participant.LargeData.Monitoring
+** Generic.StrictReliable.LargeData
+** Generic.KeepLastReliable.LargeData
+** Generic.StrictReliable.LargeData.FastFlow
+** Generic.StrictReliable.LargeData.MediumFlow
+** Generic.StrictReliable.LargeData.SlowFlow
+** Generic.KeepLastReliable.LargeData.FastFlow
+** Generic.KeepLastReliable.LargeData.MediumFlow
+** Generic.KeepLastReliable.LargeData.SlowFlow
+** Generic.KeepLastReliable.TransientLocal
+** Generic.KeepLastReliable.Transient
+** Generic.KeepLastReliable.Persistent
+** Generic.AutoTuning
+** Pattern.PeriodicData
+** Pattern.Streaming
+** Pattern.ReliableStreaming
+** Pattern.Event
+** Pattern.AlarmEvent
+** Pattern.Status
+** Pattern.AlarmStatus
+** Pattern.LastValueCache
+
+You should not edit the file BuiltinProfiles.documentationONLY.xml directly.
+However, if you wish to modify any of the values in a built-in profile, the
+recommendation is to create a profile of your own and inherit from the built-in
+profile you wish to modify. The NDDS_QOS_PROFILES.example.xml file (contained in 
+the same directory as the BuiltinProfiles.documentationONLY.xml file) shows how
+to inherit from the built-in profiles. 
+
+For more information about XML QoS Profiles see Chapter 17 in the 
+RTI Connext user manual.
+-->
+<dds xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+     xsi:noNamespaceSchemaLocation="/home/kay/rti_connext_dds-6.0.0/resource/schema/rti_dds_qos_profiles.xsd"
+     version="6.0.0">
+    <!-- QoS Library containing the QoS profile used in the generated example.
+
+        A QoS library is a named set of QoS profiles.
+    -->
+  <qos_library name="TCP_Library">
+
+  <!-- This is the base profile that defines all generic
+       settings for TCP. -->
+      
+    <qos_profile name="TCP_ProfileBase">
+      
+
+      <participant_qos>
+        
+        <!-- Turn off the built-in transports, so only TCP will be used. -->
+        <transport_builtin>
+          <mask>MASK_NONE</mask>
+        </transport_builtin>
+        
+
+        <!-- Configuring the DomainParticipant with properties to 
+             enable the TCP transport.  This also increases the default
+             socket and message sizes, because TCP can support larger 
+             messages than UDP, and it makes sense to take advantage of 
+             this. -->
+        <property>
+          <value>
+            <!-- Required elements to enable the transport -->
+            <element>
+              <name>dds.transport.TCPv4.tcp1.create_function</name>
+              <value>NDDS_Transport_TCPv4_create</value>
+            </element>
+            <element>
+              <name>dds.transport.TCPv4.tcp1.parent.classid</name>
+              <value>NDDS_TRANSPORT_CLASSID_TCPV4_LAN</value>
+            </element>
+            <element>
+              <name>dds.transport.load_plugins</name>
+              <value>dds.transport.TCPv4.tcp1</value>
+            </element>
+            <element>
+              <name>dds.transport.TCPv4.tcp1.library</name>
+              <value>nddstransporttcp</value>
+            </element>
+            
+            
+            <!-- Optional elements to increase the efficiency of 
+                             sending large data -->
+            <element>
+              <name>dds.transport.TCPv4.tcp1.max_packet_size</name>
+              <value>63020</value>
+            </element>
+            <element>
+              <name>dds.transport.TCPv4.tcp1.parent.message_size_max</name>
+              <value>63020</value>
+            </element>
+            <element>
+              <name>dds.transport.TCPv4.tcp1.recv_socket_buffer_size</name>
+              <value>8388608</value>
+            </element>
+            <element>
+              <name>dds.transport.TCPv4.tcp1.send_socket_buffer_size</name>
+              <value>8388608</value>
+            </element>
+          </value>
+        </property>
+      </participant_qos>
+    </qos_profile>
+
+    <!-- This profile extends from the TCP_ProfileBase and declares
+         the initial peers and the listening port for the Publisher
+         Application. -->
+    <qos_profile name="TCP_Publisher" base_name="TCP_ProfileBase">
+      <!-- <participant_qos>
+          <wire_protocol>
+              <rtps_auto_id_kind>RTPS_AUTO_ID_FROM_UUID</rtps_auto_id_kind>
+              <participant_id>0</participant_id>
+          </wire_protocol>
+      </participant_qos> -->
+      <participant_qos>
+        <discovery>
+          <initial_peers>
+            <!-- - - - - - - - - - - - - - - - - - - - - -  -  -->
+            <!-- The initial peer this participan will contact -->
+            <!--     Please modify this for your system.       -->
+            <!-- - - - - - - - - - - - - - - - - - - -  - - -  -->
+            <!--<element>tcpv4_lan://140.118.122.107:7400</element>-->
+            <element>tcpv4_lan://192.168.0.35:7400</element>
+          </initial_peers>
+        </discovery>
+        <property>
+          <value>
+            <element>
+              <name>dds.transport.TCPv4.tcp1.server_bind_port</name>
+              <value>7400</value>
+            </element>
+          </value>
+        </property>
+      </participant_qos>
+      
+    </qos_profile> 
+    <!-- This profile extends from the TCP_ProfileBase and declares
+         the initial peers and the listening port for the Subscriber
+         Application. 
+         
+         Note that the Subscriber's listening port is the same that
+         in the Publisher's Initial Peers, and viceversa. -->
+    <qos_profile name="TCP_Subscriber" base_name="TCP_ProfileBase">
+         
+      <participant_qos>
+        <discovery>
+          <initial_peers>
+            <!-- - - - - - - - - - - - - - - - - - - - - -  -  -->
+            <!-- The initial peer this participan will contact -->
+            <!--     Please modify this for your system.       -->
+            <!-- - - - - - - - - - - - - - - - - - - -  - - -  -->
+            <!--<element>tcpv4_lan://140.118.121.79:7400</element>-->
+	          <!-- <element>tcpv4_lan://140.118.122.107:7400,tcpv4_lan://140.118.34.238:7400</element> -->
+            <element>tcpv4_lan://192.168.0.36:7400</element>
+          </initial_peers>
+        </discovery>
+        <property>
+          <value>
+            <element>
+              <name>dds.transport.TCPv4.tcp1.server_bind_port</name>
+              <value>7400</value>
+            </element>
+          </value>
+        </property>
+      </participant_qos>
+    </qos_profile>
+  </qos_library>
+</dds>

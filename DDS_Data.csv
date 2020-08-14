@@ -1,0 +1,25 @@
+UploadTime,2019-08-15 12:07:34
+Hot_Valve,0
+Cooling,1
+Usage_L,979
+Warm_Valve,0
+ColdTemp_Insulation,27
+Status,1
+Usage_MT,71
+WaterLevel,15
+ErrorCode,2
+HotTemp_Insulation,98
+Device_ID,EE_07_01
+Refilling,0
+SavingPower,0
+TimeStamp,1565842054811
+Heating,0
+Cold_Valve,0
+WarmTemp,35
+ColdTemp,20
+Usage_CC,795
+HotTemp,97
+Sterilizing,0
+Hardware,PI
+Mac_Address,B8:27:EB:07:65:4F
+TDS,62
